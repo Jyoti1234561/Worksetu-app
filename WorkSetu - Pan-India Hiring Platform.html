@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>WorkSetu — Connecting Bharat to Work • हर हुनर, हर नौकरी</title>
+
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#0B0F19" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="WorkSetu" />
+  <meta name="description" content="Pan-India Hiring Portal & Job Fair App for Frontline (Blue, Gray, Pink Collar) and Corporate (White Collar) jobs." />
+
+  <!-- Inline Web App Manifest Data URI -->
+  <link rel="manifest" href="data:application/manifest+json;utf-8,%7B%22name%22%3A%22WorkSetu%20Pan-India%22%2C%22short_name%22%3A%22WorkSetu%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%230B0F19%22%2C%22theme_color%22%3A%22%230B0F19%22%2C%22description%22%3A%22Connecting%20Bharat%20to%20Work%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fplacehold.co%2F192x192%2F0B0F19%2F10B981%3Ftext%3DWS%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fpng%22%7D%2C%7B%22src%22%3A%22https%3A%2F%2Fplacehold.co%2F512x512%2F0B0F19%2F10B981%3Ftext%3DWorkSetu%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%7D%5D%7D" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome 6 for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandDark: '#0B0F19',
+            brandDarker: '#06090E',
+            brandSurface: '#111827',
+            brandCard: '#1E293B',
+            brandEmerald: '#10B981',
+            brandEmeraldLight: '#34D399',
+            brandEmeraldDark: '#059669',
+            brandIndigo: '#4F46E5',
+            brandIndigoLight: '#6366F1',
+            brandSlate: '#94A3B8',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Safe-area insets for modern edge-to-edge screens */
+    body {
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); }
+      50% { box-shadow: 0 0 25px rgba(16, 185, 129, 0.45); }
+    }
+    .glow-emerald {
+      animation: pulseGlow 3s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body class="bg-brandDark text-slate-100 antialiased min-h-screen flex flex-col justify-between selection:bg-brandEmerald selection:text-brandDark">
+
+  <!-- ================= TOP APP BAR / HEADER ================= -->
+  <header class="sticky top-0 z-40 bg-brandDark/95 backdrop-blur-md border-b border-slate-800 shadow-xl">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 flex items-center justify-between">
+      
+      <!-- Brand Logo & Tagline -->
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="resetViews()">
+        <!-- Custom Vector Geometric "W-Bridge" Logo -->
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brandIndigo to-brandEmerald flex items-center justify-center p-1.5 shadow-lg shadow-brandIndigo/20 flex-shrink-0">
+          <svg viewBox="0 0 100 100" class="w-full h-full fill-none stroke-white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Bridge Arch -->
+            <path d="M 12 75 C 32 45, 68 45, 88 75" stroke="#10B981" stroke-width="9"/>
+            <!-- 'W' Dynamic Geometric Nodes -->
+            <path d="M 18 35 L 36 68 L 50 42 L 64 68 L 82 35" stroke="#FFFFFF" stroke-width="8"/>
+            <circle cx="18" cy="35" r="5" fill="#10B981" stroke="none"/>
+            <circle cx="50" cy="42" r="6" fill="#4F46E5" stroke="none"/>
+            <circle cx="82" cy="35" r="5" fill="#10B981" stroke="none"/>
+          </svg>
+        </div>
+
+        <div>
+          <div class="flex items-center space-x-2">
+            <h1 class="text-lg sm:text-xl font-black tracking-tight text-white flex items-center">
+              Work<span class="text-brandEmerald">Setu</span>
+            </h1>
+            <span class="hidden xs:inline-block px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-brandEmerald/10 text-brandEmerald border border-brandEmerald/25">
+              PAN-INDIA
+            </span>
+          </div>
+          <p class="text-[11px] text-slate-400 font-medium hidden sm:block truncate">
+            Connecting Bharat to Work • हर हुनर, हर नौकरी
+          </p>
+        </div>
+      </div>
+
+      <!-- Quick Platform Actions -->
+      <div class="flex items-center space-x-2 sm:space-x-3">
+        <!-- PWA Install Button -->
+        <button onclick="openInstallModal()" class="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-brandEmerald border border-brandEmerald/30 text-xs font-semibold transition active:scale-95">
+          <i class="fa-solid fa-download text-xs"></i>
+          <span class="hidden sm:inline">Install App</span>
+          <span class="sm:hidden">App</span>
+        </button>
+
+        <!-- Role Switcher: Candidate vs Employer Booth -->
+        <div class="bg-slate-900 p-1 rounded-xl border border-slate-800 flex text-xs font-semibold">
+          <button id="btnRoleCandidate" onclick="setAppRole('candidate')" class="px-2.5 sm:px-3 py-1.5 rounded-lg bg-brandIndigo text-white shadow transition flex items-center gap-1.5">
+            <i class="fa-solid fa-user-check text-[11px]"></i>
+            <span>Job Seeker</span>
+          </button>
+          <button id="btnRoleEmployer" onclick="setAppRole('employer')" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-1.5">
+            <i class="fa-solid fa-building-user text-[11px]"></i>
+            <span>Employer Booth</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dual Track Switcher Tabs (Candidate Mode) -->
+    <div id="dualTrackBar" class="bg-brandDarker border-t border-slate-800/80 px-3 py-2">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+        <div class="w-full sm:w-auto grid grid-cols-2 gap-2 bg-slate-950 p-1 rounded-xl border border-slate-800">
+          
+          <!-- Track A Button -->
+          <button id="btnTrackFrontline" onclick="switchTrack('frontline')" class="py-2 px-3 sm:px-4 rounded-lg text-xs font-bold transition flex items-center justify-center gap-2 bg-brandEmerald text-slate-950 shadow-md">
+            <i class="fa-solid fa-bolt text-xs"></i>
+            <span>Frontline & Direct Work</span>
+            <span class="hidden md:inline text-[10px] font-normal opacity-85">(Blue / Pink / Gray)</span>
+          </button>
+
+          <!-- Track B Button -->
+          <button id="btnTrackProfessional" onclick="switchTrack('professional')" class="py-2 px-3 sm:px-4 rounded-lg text-xs font-bold transition flex items-center justify-center gap-2 text-slate-400 hover:text-white">
+            <i class="fa-solid fa-briefcase text-xs"></i>
+            <span>Professional & Corporate</span>
+            <span class="hidden md:inline text-[10px] font-normal opacity-85">(White Collar)</span>
+          </button>
+        </div>
+
+        <!-- Geo Context Status Pill -->
+        <div class="hidden md:flex items-center space-x-2 text-xs text-slate-400">
+          <span class="flex h-2 w-2 relative">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brandEmerald opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-brandEmerald"></span>
+          </span>
+          <span id="activeJobsCountBadge" class="font-medium text-slate-300">Live Hiring Across 28 States & UTs</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN VIEW CONTAINER ================= -->
+  <main class="max-w-7xl w-full mx-auto px-3 sm:px-6 py-4 sm:py-6 flex-grow mb-16 sm:mb-8">
+
+    <!-- ==================================================== -->
+    <!-- VIEW 1: CANDIDATE PORTAL (Track A & Track B Feeds)   -->
+    <!-- ==================================================== -->
+    <div id="candidateViewContainer" class="space-y-4">
+      
+      <!-- Smart Search & Location Filter Toolbar -->
+      <div class="bg-brandSurface p-3.5 sm:p-5 rounded-2xl border border-slate-800 shadow-md space-y-3">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-2.5">
+          
+          <!-- Query Search -->
+          <div class="relative md:col-span-5">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-500 text-sm"></i>
+            <input 
+              type="text" 
+              id="globalSearchInput" 
+              oninput="filterAndRenderJobs()" 
+              placeholder="Search designation, skill, company (e.g. Sales, React, Driver, Nurse)..." 
+              class="w-full pl-10 pr-4 py-2.5 bg-slate-900 border border-slate-700/80 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brandEmerald transition"
+            />
+          </div>
+
+          <!-- Pan-India Region Dropdown -->
+          <div class="relative md:col-span-4">
+            <i class="fa-solid fa-location-dot absolute left-3.5 top-3.5 text-rose-500 text-sm"></i>
+            <select 
+              id="regionFilterSelect" 
+              onchange="filterAndRenderJobs()" 
+              class="w-full pl-10 pr-8 py-2.5 bg-slate-900 border border-slate-700/80 rounded-xl text-sm text-slate-200 focus:outline-none focus:border-brandEmerald transition font-medium appearance-none"
+            >
+              <option value="All">All India (Pan-India Openings)</option>
+              <option value="Madhya Pradesh">Madhya Pradesh (Gwalior, Indore, Bhopal, Bhind)</option>
+              <option value="Uttar Pradesh">Uttar Pradesh (Noida, Lucknow, Kanpur, Agra)</option>
+              <option value="Delhi NCR">Delhi NCR (Delhi, Gurugram, Faridabad)</option>
+              <option value="Maharashtra">Maharashtra (Mumbai, Pune, Nagpur)</option>
+              <option value="Karnataka">Karnataka (Bengaluru, Mysuru)</option>
+              <option value="Gujarat">Gujarat (Ahmedabad, Surat, Vadodara)</option>
+              <option value="Telangana">Telangana (Hyderabad)</option>
+              <option value="Tamil Nadu">Tamil Nadu (Chennai, Coimbatore)</option>
+              <option value="Remote">Pan-India Remote / Work From Home</option>
+            </select>
+            <i class="fa-solid fa-chevron-down absolute right-3.5 top-3.5 text-slate-500 text-xs pointer-events-none"></i>
+          </div>
+
+          <!-- Collar Category Quick Filter -->
+          <div class="md:col-span-3">
+            <select 
+              id="collarCategorySelect" 
+              onchange="filterAndRenderJobs()" 
+              class="w-full py-2.5 px-3 bg-slate-900 border border-slate-700/80 rounded-xl text-sm text-slate-200 focus:outline-none focus:border-brandEmerald transition font-medium"
+            >
+              <option value="All">All Categories</option>
+              <option value="Blue Collar">Blue Collar (Logistics, Trade, Security)</option>
+              <option value="Pink Collar">Pink Collar (Retail, Care, Hospitality)</option>
+              <option value="Gray Collar">Gray Collar (Technicians, Paramedical)</option>
+              <option value="White Collar">White Collar (Software, Finance, HR)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Tag Filters / Quick Badges -->
+        <div class="flex items-center space-x-2 overflow-x-auto no-scrollbar pt-1 text-xs">
+          <span class="text-slate-400 font-semibold uppercase tracking-wider pr-1 flex items-center gap-1">
+            <i class="fa-solid fa-sliders text-[10px]"></i> Quick:
+          </span>
+          <button onclick="toggleQuickFilter('Verified', this)" class="quick-chip px-3 py-1.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700 hover:border-brandEmerald transition whitespace-nowrap">
+            <i class="fa-solid fa-circle-check text-brandEmerald mr-1"></i> 100% Verified Only
+          </button>
+          <button onclick="toggleQuickFilter('Fresher', this)" class="quick-chip px-3 py-1.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700 hover:border-brandEmerald transition whitespace-nowrap">
+            🎓 Freshers Welcome
+          </button>
+          <button onclick="toggleQuickFilter('Immediate', this)" class="quick-chip px-3 py-1.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700 hover:border-brandEmerald transition whitespace-nowrap">
+            ⚡ Immediate Joining
+          </button>
+          <button onclick="toggleQuickFilter('DirectCall', this)" class="quick-chip px-3 py-1.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700 hover:border-brandEmerald transition whitespace-nowrap">
+            📞 Direct Recruiter Contact
+          </button>
+        </div>
+      </div>
+
+      <!-- Feed Header & Anti-Fraud Notice -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between text-xs text-slate-400 gap-1 px-1">
+        <div id="resultsFeedback" class="font-medium text-slate-300">
+          Showing verified Pan-India job opportunities
+        </div>
+        <div class="flex items-center text-brandEmerald space-x-1.5 font-medium">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Zero Candidate Fees Guaranteed • No Consultancies</span>
+        </div>
+      </div>
+
+      <!-- JOBS GRID FEED -->
+      <div id="jobsGridingsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Rendered dynamically by JavaScript -->
+      </div>
+    </div>
+
+    <!-- ==================================================== -->
+    <!-- VIEW 2: EMPLOYER RECRUITER BOOTH                     -->
+    <!-- ==================================================== -->
+    <div id="employerViewContainer" class="hidden space-y-6">
+      
+      <!-- Recruiter Performance Metrics -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div class="bg-brandSurface p-4 rounded-2xl border border-slate-800 shadow">
+          <span class="text-xs text-slate-400 font-medium">Active Listings</span>
+          <p id="statActiveCount" class="text-2xl font-black text-white mt-1">6</p>
+          <span class="text-[11px] text-brandEmerald">Pan-India Reach</span>
+        </div>
+        <div class="bg-brandSurface p-4 rounded-2xl border border-slate-800 shadow">
+          <span class="text-xs text-slate-400 font-medium">Direct Inquiries / Calls</span>
+          <p id="statInquiryCount" class="text-2xl font-black text-brandEmerald mt-1">42</p>
+          <span class="text-[11px] text-slate-400">Live connection rate</span>
+        </div>
+        <div class="bg-brandSurface p-4 rounded-2xl border border-slate-800 shadow">
+          <span class="text-xs text-slate-400 font-medium">Employer Verification</span>
+          <p class="text-sm font-bold text-brandEmerald mt-2 flex items-center gap-1">
+            <i class="fa-solid fa-circle-check"></i> GST / MSME Verified
+          </p>
+          <span class="text-[11px] text-slate-400">Tier-1 Trust Badge</span>
+        </div>
+        <div class="bg-brandSurface p-4 rounded-2xl border border-slate-800 shadow">
+          <span class="text-xs text-slate-400 font-medium">Job Fair Status</span>
+          <p class="text-sm font-bold text-brandIndigoLight mt-2 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-brandEmerald animate-ping"></span> Live Broadcast
+          </p>
+          <span class="text-[11px] text-slate-400">Receiving candidates</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Post a Job in 60 Seconds Form (Left 5 cols) -->
+        <div class="lg:col-span-5 bg-brandSurface p-5 sm:p-6 rounded-2xl border border-slate-800 shadow-md">
+          <div class="flex items-center space-x-3 pb-3 mb-4 border-b border-slate-800">
+            <div class="w-10 h-10 rounded-xl bg-brandIndigo/20 text-brandIndigoLight flex items-center justify-center font-bold text-lg">
+              <i class="fa-solid fa-file-circle-plus"></i>
+            </div>
+            <div>
+              <h2 class="text-base font-bold text-white">Post a Job (60-Sec Form)</h2>
+              <p class="text-xs text-slate-400">Instant listing across Pan-India candidate feed</p>
+            </div>
+          </div>
+
+          <form id="postJobQuickForm" onsubmit="handleEmployerPost(event)" class="space-y-3.5 text-xs">
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Job Designation *</label>
+              <input type="text" id="postTitle" required placeholder="e.g. Area Sales Officer, React Dev, Delivery Driver" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brandEmerald" />
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5">
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">Company / Firm *</label>
+                <input type="text" id="postCompany" required placeholder="e.g. Zomato Fleet, Infosys, Local Mart" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brandEmerald" />
+              </div>
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">Track & Category *</label>
+                <select id="postCollarTrack" required class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brandEmerald font-medium">
+                  <option value="Blue Collar">Blue Collar (Logistics/Trade)</option>
+                  <option value="Pink Collar">Pink Collar (Retail/Care/Voice)</option>
+                  <option value="Gray Collar">Gray Collar (Technician/Nurse)</option>
+                  <option value="White Collar">White Collar (Corporate/Tech)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5">
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">City & State *</label>
+                <input type="text" id="postCity" required placeholder="e.g. Gwalior (MP), Noida (UP), Bengaluru" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brandEmerald" />
+              </div>
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">Vacancies</label>
+                <input type="number" id="postOpenings" value="5" min="1" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brandEmerald" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5">
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">Pay / CTC Details *</label>
+                <input type="text" id="postSalary" required placeholder="e.g. ₹18,000 - ₹24,000/mo OR 6 - 8 LPA" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brandEmerald" />
+              </div>
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">Required Experience</label>
+                <input type="text" id="postExperience" required placeholder="e.g. Fresher / 1-2 Yrs" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brandEmerald" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5">
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">HR Calling Phone *</label>
+                <input type="tel" id="postPhone" required placeholder="+91 9876543210" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brandEmerald" />
+              </div>
+              <div>
+                <label class="block font-semibold text-slate-300 mb-1">WhatsApp Recruiter</label>
+                <input type="tel" id="postWhatsapp" placeholder="919876543210" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brandEmerald" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-slate-300 mb-1">Tags & Perks (Comma-separated)</label>
+              <input type="text" id="postTags" placeholder="Daily Incentives, Fuel Provided, PF/ESI, Immediate Join" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brandEmerald" />
+            </div>
+
+            <button type="submit" class="w-full py-3 bg-gradient-to-r from-brandEmerald to-brandEmeraldDark text-slate-950 font-black rounded-xl text-sm shadow-lg shadow-brandEmerald/20 transition active:scale-[0.98]">
+              Publish Job to All India Stream
+            </button>
+          </form>
+        </div>
+
+        <!-- Live Applicant Inquiries & Contact Tracker (Right 7 cols) -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="bg-brandSurface p-5 sm:p-6 rounded-2xl border border-slate-800 shadow-md">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+              <div>
+                <h3 class="text-base font-bold text-white">Live Candidate Interaction Feed</h3>
+                <p class="text-xs text-slate-400">Direct phone taps, WhatsApp chats & 1-Click submissions</p>
+              </div>
+              <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-brandEmerald/10 text-brandEmerald border border-brandEmerald/30 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-brandEmerald animate-pulse"></span> Realtime Leads
+              </span>
+            </div>
+
+            <!-- Leads Table -->
+            <div class="mt-4 overflow-x-auto">
+              <table class="w-full text-left text-xs">
+                <thead>
+                  <tr class="text-slate-400 border-b border-slate-800 pb-2">
+                    <th class="pb-2.5 font-semibold">Candidate Name</th>
+                    <th class="pb-2.5 font-semibold">Applied Role</th>
+                    <th class="pb-2.5 font-semibold">Channel</th>
+                    <th class="pb-2.5 font-semibold">Time</th>
+                    <th class="pb-2.5 text-right font-semibold">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="applicantLeadsTableBody" class="divide-y divide-slate-800/60">
+                  <!-- Injected via JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Active Jobs Management -->
+          <div class="bg-brandSurface p-5 rounded-2xl border border-slate-800 shadow-md">
+            <h4 class="text-sm font-bold text-white mb-3 flex items-center justify-between">
+              <span>Your Active Pan-India Vacancies</span>
+              <span class="text-xs text-slate-400 font-normal">Tap trash icon to close vacancy</span>
+            </h4>
+            <div id="employerJobListContainer" class="space-y-2">
+              <!-- Injected via JavaScript -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ================= RESPONSIVE BOTTOM NAVIGATION DOCK (MOBILE ONLY) ================= -->
+  <nav class="sm:hidden fixed bottom-0 left-0 right-0 bg-brandDark/95 backdrop-blur-md border-t border-slate-800 z-30 px-6 py-2.5 flex justify-between items-center text-xs shadow-2xl">
+    <button onclick="setAppRole('candidate'); switchTrack('frontline');" class="flex flex-col items-center text-brandEmerald">
+      <i class="fa-solid fa-bolt text-lg"></i>
+      <span class="text-[10px] font-bold mt-1">Frontline</span>
+    </button>
+    <button onclick="setAppRole('candidate'); switchTrack('professional');" class="flex flex-col items-center text-slate-400 hover:text-white">
+      <i class="fa-solid fa-briefcase text-lg"></i>
+      <span class="text-[10px] font-medium mt-1">Corporate</span>
+    </button>
+    <button onclick="openCandidateProfileModal(null)" class="flex flex-col items-center text-slate-400 hover:text-white">
+      <i class="fa-solid fa-id-card text-lg"></i>
+      <span class="text-[10px] font-medium mt-1">My Profile</span>
+    </button>
+    <button onclick="setAppRole('employer')" class="flex flex-col items-center text-slate-400 hover:text-white">
+      <i class="fa-solid fa-plus-circle text-lg text-brandIndigoLight"></i>
+      <span class="text-[10px] font-medium mt-1">Post Job</span>
+    </button>
+    <button onclick="openInstallModal()" class="flex flex-col items-center text-slate-400 hover:text-white">
+      <i class="fa-solid fa-mobile-screen-button text-lg"></i>
+      <span class="text-[10px] font-medium mt-1">Install</span>
+    </button>
+  </nav>
+
+  <!-- ================= MODALS & POPUPS ================= -->
+
+  <!-- 1. Universal PWA Installation Guide (Android, iOS Safari, Windows/Mac PC) -->
+  <div id="installModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-brandSurface border border-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl text-slate-100 space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brandIndigo to-brandEmerald flex items-center justify-center font-black text-white text-lg">
+            W
+          </div>
+          <div>
+            <h3 class="text-base font-extrabold text-white">Install WorkSetu App</h3>
+            <p class="text-xs text-slate-400">Android, iPhone, iPad, Windows & Mac</p>
+          </div>
+        </div>
+        <button onclick="closeInstallModal()" class="text-slate-400 hover:text-white p-1 rounded-lg">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Native Browser Install Trigger (If PWA prompt fired) -->
+      <div id="pwaNativeInstallRow" class="p-3 bg-brandEmerald/10 rounded-xl border border-brandEmerald/30 flex items-center justify-between">
+        <div>
+          <p class="text-xs font-bold text-white">One-Tap Quick Install</p>
+          <p class="text-[11px] text-slate-300">Add app icon directly to your home screen</p>
+        </div>
+        <button onclick="triggerPwaPrompt()" class="px-3 py-1.5 bg-brandEmerald text-slate-950 font-bold rounded-lg text-xs shadow-md">
+          Install Now
+        </button>
+      </div>
+
+      <!-- Platform Step Guides -->
+      <div class="space-y-3 text-xs">
+        <!-- Android Guide -->
+        <div class="p-3 bg-slate-900 rounded-xl border border-slate-800 space-y-1">
+          <div class="font-bold text-brandEmerald flex items-center gap-2">
+            <i class="fa-brands fa-android text-sm"></i> Android Phones (Chrome / Edge / Samsung)
+          </div>
+          <p class="text-slate-300 text-[11px] leading-relaxed">
+            Tap browser menu <strong>(⋮)</strong> $\rightarrow$ tap <strong>"Install app"</strong> or <strong>"Add to Home screen"</strong>. Works like a native APK.
+          </p>
+        </div>
+
+        <!-- Apple iOS Guide -->
+        <div class="p-3 bg-slate-900 rounded-xl border border-slate-800 space-y-1">
+          <div class="font-bold text-slate-200 flex items-center gap-2">
+            <i class="fa-brands fa-apple text-sm"></i> Apple iPhone & iPad (Safari)
+          </div>
+          <p class="text-slate-300 text-[11px] leading-relaxed">
+            Tap the <strong>Share icon [↑]</strong> in bottom Safari bar $\rightarrow$ scroll down and select <strong>"Add to Home Screen"</strong> $\rightarrow$ tap <strong>Add</strong>.
+          </p>
+        </div>
+
+        <!-- PC / Laptop Guide -->
+        <div class="p-3 bg-slate-900 rounded-xl border border-slate-800 space-y-1">
+          <div class="font-bold text-brandIndigoLight flex items-center gap-2">
+            <i class="fa-solid fa-laptop text-sm"></i> Computer / Laptop (Chrome, Edge, Brave)
+          </div>
+          <p class="text-slate-300 text-[11px] leading-relaxed">
+            Look for the <strong>Install Icon [⊕]</strong> inside the browser address bar at the top right, or click Menu $\rightarrow$ "Install WorkSetu".
+          </p>
+        </div>
+      </div>
+
+      <button onclick="closeInstallModal()" class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded-xl transition">
+        Close Window
+      </button>
+    </div>
+  </div>
+
+  <!-- 2. Direct Call Recruiter Confirmation & Tracker -->
+  <div id="callConfirmModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-brandSurface border border-slate-800 rounded-3xl max-w-sm w-full p-6 text-center shadow-2xl space-y-4">
+      <div class="w-14 h-14 bg-brandEmerald/10 text-brandEmerald rounded-full flex items-center justify-center mx-auto text-2xl border border-brandEmerald/30">
+        <i class="fa-solid fa-phone-volume"></i>
+      </div>
+      <div>
+        <h3 class="text-base font-extrabold text-white">Direct Recruiter Calling</h3>
+        <p class="text-xs text-slate-400 mt-1">Connecting with HR for:</p>
+        <p id="dialerJobTitle" class="text-sm font-bold text-brandEmerald mt-0.5"></p>
+        <p id="dialerCompanyName" class="text-xs text-slate-300"></p>
+      </div>
+
+      <div class="p-3 bg-slate-900 rounded-xl border border-slate-800 text-left text-xs text-slate-300 space-y-1">
+        <div class="text-brandEmerald font-bold flex items-center gap-1.5">
+          <i class="fa-solid fa-circle-info"></i> Candidate Guidance:
+        </div>
+        <p class="text-[11px] text-slate-400 leading-relaxed">
+          State clearly: <em>"Hello HR, I saw your job opening on the WorkSetu hiring app and wish to apply."</em>
+        </p>
+      </div>
+
+      <div class="flex space-x-2 pt-1">
+        <button onclick="closeCallModal()" class="flex-1 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl">
+          Cancel
+        </button>
+        <a id="dialerFinalAnchor" href="#" onclick="recordInteractionAndTriggerDial()" class="flex-1 py-2.5 bg-brandEmerald text-slate-950 font-black text-xs rounded-xl flex items-center justify-center gap-1.5 shadow-md shadow-brandEmerald/20">
+          <i class="fa-solid fa-phone"></i>
+          <span>Dial Now</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Professional White-Collar 1-Click Fast Apply Modal -->
+  <div id="corporateApplyModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-brandSurface border border-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4 text-slate-100">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-wider text-brandIndigoLight bg-brandIndigo/20 px-2 py-0.5 rounded">White Collar Track</span>
+          <h3 class="text-base font-extrabold text-white mt-1">1-Click Fast Apply</h3>
+          <p id="applyJobTitleHeader" class="text-xs text-slate-400 font-medium"></p>
+        </div>
+        <button onclick="closeCorporateApplyModal()" class="text-slate-400 hover:text-white p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form id="corporateApplyForm" onsubmit="handleCorporateApplication(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Full Legal Name *</label>
+          <input type="text" id="corpCandName" required placeholder="e.g. Ankit Gupta" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brandIndigo" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-2.5">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Mobile / WhatsApp *</label>
+            <input type="tel" id="corpCandPhone" required placeholder="+91 9876543210" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brandIndigo" />
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Current City</label>
+            <input type="text" id="corpCandCity" placeholder="e.g. Bengaluru / Indore" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brandIndigo" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2.5">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Total Experience</label>
+            <select id="corpCandExp" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brandIndigo">
+              <option value="Fresher">Fresher (0 Years)</option>
+              <option value="1-2 Years">1 - 2 Years</option>
+              <option value="3-5 Years" selected>3 - 5 Years</option>
+              <option value="5-8 Years">5 - 8 Years</option>
+              <option value="8+ Years">8+ Years</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Notice Period</label>
+            <select id="corpCandNotice" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brandIndigo">
+              <option value="Immediate">Immediate Joiner</option>
+              <option value="15 Days">15 Days</option>
+              <option value="30 Days" selected>30 Days</option>
+              <option value="60-90 Days">60 - 90 Days</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">LinkedIn or Resume URL</label>
+          <input type="url" id="corpCandResume" placeholder="https://linkedin.com/in/... or drive link" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brandIndigo" />
+        </div>
+
+        <div class="p-2.5 bg-slate-900 rounded-xl border border-slate-800 text-slate-400 text-[11px] flex items-center gap-2">
+          <i class="fa-solid fa-lock text-brandEmerald"></i>
+          <span>Direct confidential submission to employer HR. No spam.</span>
+        </div>
+
+        <div class="pt-2 flex space-x-2">
+          <button type="button" onclick="closeCorporateApplyModal()" class="flex-1 py-2.5 bg-slate-800 text-slate-300 font-bold rounded-xl text-xs">
+            Cancel
+          </button>
+          <button type="submit" class="flex-1 py-2.5 bg-brandIndigo hover:bg-brandIndigoLight text-white font-black rounded-xl text-xs shadow-md shadow-brandIndigo/25">
+            Submit Application
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. Global Floating Notification Toast -->
+  <div id="toastNotification" class="fixed top-4 right-4 z-50 transform -translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+    <div id="toastContainer" class="bg-slate-900 border border-slate-700 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center space-x-3 text-xs font-semibold">
+      <i id="toastIcon" class="fa-solid fa-circle-check text-brandEmerald text-base"></i>
+      <span id="toastMessage">Action completed successfully</span>
+    </div>
+  </div>
+
+  <!-- ================= CORE APPLICATION JAVASCRIPT ================= -->
+  <script>
+    /* -----------------------------------------------------------
+       1. DATABASE & INITIAL DUAL-TRACK STATE
+    ----------------------------------------------------------- */
+    let currentRole = 'candidate'; // 'candidate' or 'employer'
+    let currentTrack = 'frontline'; // 'frontline' or 'professional'
+    let selectedQuickFilters = new Set();
+    let deferredPwaPrompt = null;
+    let activeCallTarget = null;
+    let activeCorporateTarget = null;
+
+    // Master Pan-India Job Catalog
+    let jobsDatabase = [
+      // Track A: Frontline & Direct Work (Blue, Pink, Gray Collar)
+      {
+        id: 'ws-101',
+        track: 'frontline',
+        collar: 'Blue Collar',
+        title: 'Field Merchant Onboarding Specialist',
+        company: 'BharatPay Merchant Services',
+        city: 'Gwalior, Madhya Pradesh',
+        state: 'Madhya Pradesh',
+        payFormatted: '₹18,000 - ₹25,000 / month',
+        minMonthlyPay: 18000,
+        experience: 'Fresher / 10th-12th Pass',
+        openings: 15,
+        phone: '+919876543210',
+        whatsapp: '919876543210',
+        isVerified: true,
+        tags: ['Daily Incentives', 'Fuel Allowance', 'Immediate Join'],
+        postedTime: 'Today'
+      },
+      {
+        id: 'ws-102',
+        track: 'frontline',
+        collar: 'Pink Collar',
+        title: 'Customer Experience & Telecalling (Voice)',
+        company: 'Apex TeleConnect Solutions',
+        city: 'Noida, Uttar Pradesh',
+        state: 'Uttar Pradesh',
+        payFormatted: '₹16,500 - ₹22,000 / month',
+        minMonthlyPay: 16500,
+        experience: 'Freshers Welcome • 12th / Any Degree',
+        openings: 8,
+        phone: '+919876543211',
+        whatsapp: '919876543211',
+        isVerified: true,
+        tags: ['Fixed Sunday Off', 'Clean AC Office', 'Quarterly Bonus'],
+        postedTime: '1 day ago'
+      },
+      {
+        id: 'ws-103',
+        track: 'frontline',
+        collar: 'Blue Collar',
+        title: 'Last-Mile Delivery Driver & Logistics Partner',
+        company: 'SpeedKart National Express',
+        city: 'Indore, Madhya Pradesh',
+        state: 'Madhya Pradesh',
+        payFormatted: '₹17,000 - ₹26,000 / month',
+        minMonthlyPay: 17000,
+        experience: 'Bike & Driving License Required',
+        openings: 30,
+        phone: '+919876543212',
+        whatsapp: '919876543212',
+        isVerified: false,
+        tags: ['Immediate Joining', 'Daily Payouts', 'Accident Cover'],
+        postedTime: 'Just now'
+      },
+      {
+        id: 'ws-104',
+        track: 'frontline',
+        collar: 'Gray Collar',
+        title: 'Dialysis & ICU Nursing Technician',
+        company: 'MedStar Healthcare Network',
+        city: 'Bhopal, Madhya Pradesh',
+        state: 'Madhya Pradesh',
+        payFormatted: '₹22,000 - ₹30,000 / month',
+        minMonthlyPay: 22000,
+        experience: 'Diploma / GNM • 1+ Yr Hospital',
+        openings: 4,
+        phone: '+919876543213',
+        whatsapp: '919876543213',
+        isVerified: true,
+        tags: ['PF & Medical Cover', 'Rotational Off', 'Overtime Bonus'],
+        postedTime: '2 days ago'
+      },
+      {
+        id: 'ws-105',
+        track: 'frontline',
+        collar: 'Pink Collar',
+        title: 'Salon Stylist & Beauty Care Executive',
+        company: 'GlowAura Salon & Spa',
+        city: 'Delhi NCR (South Ex & Noida)',
+        state: 'Delhi NCR',
+        payFormatted: '₹20,000 - ₹28,000 / month',
+        minMonthlyPay: 20000,
+        experience: '1-3 Yrs Skin & Hair Care',
+        openings: 6,
+        phone: '+919876543214',
+        whatsapp: '919876543214',
+        isVerified: true,
+        tags: ['Client Tips', 'Company Uniform', 'Fast Growth'],
+        postedTime: '3 days ago'
+      },
+
+      // Track B: Professional & Corporate (White Collar)
+      {
+        id: 'ws-201',
+        track: 'professional',
+        collar: 'White Collar',
+        title: 'Senior Operations & Dispatch Lead',
+        company: 'Bharat Logistics & Freight Network',
+        city: 'Bhopal, Madhya Pradesh',
+        state: 'Madhya Pradesh',
+        payFormatted: '₹6.5 - ₹8.5 Lakh / annum',
+        minMonthlyPay: 54000,
+        experience: '3-5 Years • Graduate / MBA',
+        openings: 2,
+        phone: '+919876543220',
+        whatsapp: '919876543220',
+        isVerified: true,
+        tags: ['Supply Chain', 'Team Management', 'Corporate Role'],
+        postedTime: 'Today'
+      },
+      {
+        id: 'ws-202',
+        track: 'professional',
+        collar: 'White Collar',
+        title: 'Full Stack Web Developer (Node & React)',
+        company: 'CloudGrid Technologies',
+        city: 'Bengaluru, Karnataka (or Remote)',
+        state: 'Karnataka',
+        payFormatted: '₹12 - ₹18 Lakh / annum',
+        minMonthlyPay: 100000,
+        experience: '2-4 Years Full Stack Production',
+        openings: 3,
+        phone: '+919876543221',
+        whatsapp: '919876543221',
+        isVerified: true,
+        tags: ['Pan-India Remote', 'Health Insurance', 'ESOPs'],
+        postedTime: '1 day ago'
+      },
+      {
+        id: 'ws-203',
+        track: 'professional',
+        collar: 'White Collar',
+        title: 'Senior Accounts Officer (Tally Prime / GST)',
+        company: 'Vanguard Industrial Goods',
+        city: 'Kanpur, Uttar Pradesh',
+        state: 'Uttar Pradesh',
+        payFormatted: '₹4.5 - ₹6.0 Lakh / annum',
+        minMonthlyPay: 37500,
+        experience: '2+ Yrs B.Com / M.Com',
+        openings: 2,
+        phone: '+919876543222',
+        whatsapp: '919876543222',
+        isVerified: true,
+        tags: ['Audit Handling', 'Stable Corporate', 'PF & ESI'],
+        postedTime: '2 days ago'
+      },
+      {
+        id: 'ws-204',
+        track: 'professional',
+        collar: 'White Collar',
+        title: 'Human Resources (Talent Acquisition Specialist)',
+        company: 'Zenith Staffing India',
+        city: 'Mumbai, Maharashtra',
+        state: 'Maharashtra',
+        payFormatted: '₹5.5 - ₹7.5 Lakh / annum',
+        minMonthlyPay: 45000,
+        experience: '1-3 Years Recruitment Experience',
+        openings: 4,
+        phone: '+919876543223',
+        whatsapp: '919876543223',
+        isVerified: true,
+        tags: ['Hybrid Work', 'Performance Incentive', '5-Day Work Week'],
+        postedTime: '4 days ago'
+      }
+    ];
+
+    // Live Lead & Applicant Inquiries Tracker (Employer Booth View)
+    let candidateInquiryLeads = [
+      { id: 'lead-1', name: 'Rohan Sharma', phone: '+91 98260 12345', jobTitle: 'Field Merchant Onboarding', channel: 'Direct Call', time: '12 mins ago' },
+      { id: 'lead-2', name: 'Priya Narang', phone: '+91 97555 45678', jobTitle: 'Customer Experience Voice', channel: 'WhatsApp', time: '34 mins ago' },
+      { id: 'lead-3', name: 'Manish Verma', phone: '+91 94251 98765', jobTitle: 'Full Stack Web Developer', channel: '1-Click Profile', time: '1 hr ago' },
+      { id: 'lead-4', name: 'Deepak Sengar', phone: '+91 88899 33221', jobTitle: 'Delivery Driver Partner', channel: 'Direct Call', time: '2 hrs ago' }
+    ];
+
+    /* -----------------------------------------------------------
+       2. TRACK & ROLE MANAGEMENT
+    ----------------------------------------------------------- */
+    function setAppRole(role) {
+      currentRole = role;
+      const candidateView = document.getElementById('candidateViewContainer');
+      const employerView = document.getElementById('employerViewContainer');
+      const dualTrackBar = document.getElementById('dualTrackBar');
+      const btnCand = document.getElementById('btnRoleCandidate');
+      const btnEmp = document.getElementById('btnRoleEmployer');
+
+      if (role === 'candidate') {
+        candidateView.classList.remove('hidden');
+        employerView.classList.add('hidden');
+        dualTrackBar.classList.remove('hidden');
+
+        btnCand.className = 'px-2.5 sm:px-3 py-1.5 rounded-lg bg-brandIndigo text-white shadow transition flex items-center gap-1.5';
+        btnEmp.className = 'px-2.5 sm:px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-1.5';
+        filterAndRenderJobs();
+      } else {
+        candidateView.classList.add('hidden');
+        employerView.classList.remove('hidden');
+        dualTrackBar.classList.add('hidden');
+
+        btnEmp.className = 'px-2.5 sm:px-3 py-1.5 rounded-lg bg-brandIndigo text-white shadow transition flex items-center gap-1.5';
+        btnCand.className = 'px-2.5 sm:px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-1.5';
+        renderEmployerBooth();
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function switchTrack(track) {
+      currentTrack = track;
+      const btnFrontline = document.getElementById('btnTrackFrontline');
+      const btnProfessional = document.getElementById('btnTrackProfessional');
+
+      if (track === 'frontline') {
+        btnFrontline.className = 'py-2 px-3 sm:px-4 rounded-lg text-xs font-bold transition flex items-center justify-center gap-2 bg-brandEmerald text-slate-950 shadow-md';
+        btnProfessional.className = 'py-2 px-3 sm:px-4 rounded-lg text-xs font-bold transition flex items-center justify-center gap-2 text-slate-400 hover:text-white';
+      } else {
+        btnProfessional.className = 'py-2 px-3 sm:px-4 rounded-lg text-xs font-bold transition flex items-center justify-center gap-2 bg-brandIndigo text-white shadow-md';
+        btnFrontline.className = 'py-2 px-3 sm:px-4 rounded-lg text-xs font-bold transition flex items-center justify-center gap-2 text-slate-400 hover:text-white';
+      }
+      filterAndRenderJobs();
+    }
+
+    function resetViews() {
+      setAppRole('candidate');
+      switchTrack('frontline');
+      document.getElementById('globalSearchInput').value = '';
+      document.getElementById('regionFilterSelect').value = 'All';
+      document.getElementById('collarCategorySelect').value = 'All';
+      selectedQuickFilters.clear();
+      document.querySelectorAll('.quick-chip').forEach(c => {
+        c.classList.remove('bg-brandEmerald', 'text-slate-950', 'font-bold');
+        c.classList.add('bg-slate-800', 'text-slate-300');
+      });
+      filterAndRenderJobs();
+    }
+
+    /* -----------------------------------------------------------
+       3. FILTERING & RENDER ENGINE
+    ----------------------------------------------------------- */
+    function toggleQuickFilter(filterKey, element) {
+      if (selectedQuickFilters.has(filterKey)) {
+        selectedQuickFilters.delete(filterKey);
+        element.classList.remove('bg-brandEmerald', 'text-slate-950', 'font-bold');
+        element.classList.add('bg-slate-800', 'text-slate-300');
+      } else {
+        selectedQuickFilters.add(filterKey);
+        element.classList.remove('bg-slate-800', 'text-slate-300');
+        element.classList.add('bg-brandEmerald', 'text-slate-950', 'font-bold');
+      }
+      filterAndRenderJobs();
+    }
+
+    function filterAndRenderJobs() {
+      const query = document.getElementById('globalSearchInput').value.toLowerCase().trim();
+      const region = document.getElementById('regionFilterSelect').value;
+      const collarCategory = document.getElementById('collarCategorySelect').value;
+      const grid = document.getElementById('jobsGridingsList');
+
+      const filtered = jobsDatabase.filter(job => {
+        // Track match
+        const matchesTrack = job.track === currentTrack;
+
+        // Query match
+        const matchesQuery = !query || 
+          job.title.toLowerCase().includes(query) ||
+          job.company.toLowerCase().includes(query) ||
+          job.city.toLowerCase().includes(query) ||
+          job.tags.some(t => t.toLowerCase().includes(query));
+
+        // Region match
+        const matchesRegion = (region === 'All') || job.city.includes(region) || (job.state && job.state === region);
+
+        // Collar Category dropdown match
+        const matchesCollar = (collarCategory === 'All') || job.collar === collarCategory;
+
+        // Quick Tags Filter
+        let matchesQuick = true;
+        if (selectedQuickFilters.has('Verified') && !job.isVerified) matchesQuick = false;
+        if (selectedQuickFilters.has('Fresher') && !job.experience.toLowerCase().includes('fresh')) matchesQuick = false;
+        if (selectedQuickFilters.has('Immediate') && !job.tags.some(t => t.toLowerCase().includes('immediate'))) matchesQuick = false;
+
+        return matchesTrack && matchesQuery && matchesRegion && matchesCollar && matchesQuick;
+      });
+
+      // Update feedback badge
+      document.getElementById('resultsFeedback').textContent = `Showing ${filtered.length} openings in ${currentTrack === 'frontline' ? 'Frontline & Direct Work' : 'Professional & Corporate'} track`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-16 text-center bg-brandSurface rounded-3xl border border-slate-800 p-8 space-y-3">
+            <div class="w-14 h-14 bg-slate-800 text-slate-400 rounded-2xl flex items-center justify-center mx-auto text-2xl">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <h3 class="text-base font-bold text-white">No Vacancies Matching Criteria</h3>
+            <p class="text-xs text-slate-400 max-w-sm mx-auto">Try selecting "All India" or clearing your search term to explore other openings.</p>
+            <button onclick="resetViews()" class="px-4 py-2 bg-brandEmerald text-slate-950 font-bold rounded-xl text-xs shadow-md">
+              Reset Filters
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      // Render Job Cards
+      grid.innerHTML = filtered.map(job => {
+        const isFrontline = job.track === 'frontline';
+        const collarBadgeColor = job.collar === 'Blue Collar' ? 'bg-blue-500/10 text-blue-400 border-blue-500/30' :
+          job.collar === 'Pink Collar' ? 'bg-pink-500/10 text-pink-400 border-pink-500/30' :
+          job.collar === 'Gray Collar' ? 'bg-amber-500/10 text-amber-400 border-amber-500/30' :
+          'bg-indigo-500/10 text-indigo-400 border-indigo-500/30';
+
+        return `
+          <article class="bg-brandSurface border border-slate-800 hover:border-slate-700 rounded-3xl p-5 shadow-lg transition-all duration-200 flex flex-col justify-between group">
+            <div>
+              <!-- Header Row -->
+              <div class="flex items-start justify-between gap-2">
+                <div>
+                  <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md border ${collarBadgeColor}">
+                    ${job.collar}
+                  </span>
+                  <h2 class="text-base font-bold text-white mt-1.5 group-hover:text-brandEmerald transition-colors leading-snug">
+                    ${job.title}
+                  </h2>
+                  <p class="text-xs text-slate-400 font-medium mt-0.5">${job.company}</p>
+                </div>
+                ${job.isVerified ? `
+                  <span class="text-[11px] font-bold text-brandEmerald bg-brandEmerald/10 border border-brandEmerald/25 px-2 py-0.5 rounded-lg flex items-center gap-1 flex-shrink-0">
+                    <i class="fa-solid fa-circle-check text-[10px]"></i> Verified
+                  </span>
+                ` : `
+                  <span class="text-[10px] font-medium text-slate-500 bg-slate-800/80 px-2 py-0.5 rounded flex-shrink-0">
+                    Direct
+                  </span>
+                `}
+              </div>
+
+              <!-- Salary & In-Hand Badge -->
+              <div class="my-3 py-2 px-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+                <div>
+                  <span class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider block">
+                    ${isFrontline ? 'In-Hand Monthly Pay' : 'Annual Package (CTC)'}
+                  </span>
+                  <span class="text-sm font-black ${isFrontline ? 'text-brandEmerald' : 'text-brandIndigoLight'}">
+                    ${job.payFormatted}
+                  </span>
+                </div>
+                <div class="text-right">
+                  <span class="text-[11px] font-bold text-slate-300 bg-slate-800 px-2 py-0.5 rounded">
+                    ${job.openings} Openings
+                  </span>
+                </div>
+              </div>
+
+              <!-- Job Details Specs -->
+              <div class="space-y-1.5 text-xs text-slate-300">
+                <div class="flex items-center gap-2">
+                  <i class="fa-solid fa-location-dot text-rose-500 w-3.5 text-center"></i>
+                  <span class="truncate">${job.city}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <i class="fa-solid fa-user-graduate text-slate-500 w-3.5 text-center"></i>
+                  <span class="truncate">${job.experience}</span>
+                </div>
+              </div>
+
+              <!-- Tags / Perks -->
+              <div class="mt-3 flex flex-wrap gap-1.5">
+                ${job.tags.map(tag => `
+                  <span class="text-[10px] font-medium bg-slate-800 text-slate-300 px-2 py-0.5 rounded-md border border-slate-700/60">
+                    ${tag}
+                  </span>
+                `).join('')}
+              </div>
+            </div>
+
+            <!-- Action Buttons Row -->
+            <div class="mt-5 pt-3 border-t border-slate-800">
+              ${isFrontline ? `
+                <!-- Track A: 1-Tap WhatsApp & Phone Calling -->
+                <div class="grid grid-cols-2 gap-2">
+                  <button 
+                    onclick="triggerWhatsAppOutreach('${job.id}')" 
+                    class="py-2.5 px-3 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-brandEmerald border border-brandEmerald/30 font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95"
+                  >
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span>WhatsApp HR</span>
+                  </button>
+
+                  <button 
+                    onclick="promptRecruiterCall('${job.id}')" 
+                    class="py-2.5 px-3 rounded-xl bg-gradient-to-r from-brandEmerald to-brandEmeraldDark text-slate-950 font-black text-xs flex items-center justify-center gap-1.5 shadow-md shadow-brandEmerald/20 transition active:scale-95"
+                  >
+                    <i class="fa-solid fa-phone text-xs"></i>
+                    <span>Call Recruiter</span>
+                  </button>
+                </div>
+              ` : `
+                <!-- Track B: 1-Click Fast Apply Profile Drawer -->
+                <button 
+                  onclick="openCorporateApplyModal('${job.id}')" 
+                  class="w-full py-2.5 px-4 rounded-xl bg-brandIndigo hover:bg-brandIndigoLight text-white font-black text-xs flex items-center justify-center gap-2 shadow-lg shadow-brandIndigo/25 transition active:scale-95"
+                >
+                  <i class="fa-solid fa-paper-plane text-xs"></i>
+                  <span>1-Click Fast Apply with Profile</span>
+                </button>
+              `}
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    /* -----------------------------------------------------------
+       4. OUTREACH: WHATSAPP & PHONE (NO RESUME BARRIER)
+    ----------------------------------------------------------- */
+    function promptRecruiterCall(jobId) {
+      const job = jobsDatabase.find(j => j.id === jobId);
+      if (!job) return;
+
+      activeCallTarget = job;
+      document.getElementById('dialerJobTitle').textContent = job.title;
+      document.getElementById('dialerCompanyName').textContent = `${job.company} • ${job.city}`;
+      
+      const cleanNumber = job.phone.replace(/[^0-9+]/g, '');
+      const dialerLink = document.getElementById('dialerFinalAnchor');
+      dialerLink.setAttribute('href', `tel:${cleanNumber}`);
+
+      document.getElementById('callConfirmModal').classList.remove('hidden');
+    }
+
+    function closeCallModal() {
+      document.getElementById('callConfirmModal').classList.add('hidden');
+      activeCallTarget = null;
+    }
+
+    function recordInteractionAndTriggerDial() {
+      if (activeCallTarget) {
+        candidateInquiryLeads.unshift({
+          id: 'lead-' + Date.now(),
+          name: 'Candidate (Caller)',
+          phone: activeCallTarget.phone,
+          jobTitle: activeCallTarget.title,
+          channel: 'Direct Call',
+          time: 'Just now'
+        });
+        showToast(`Initiating direct call to ${activeCallTarget.company} HR...`);
+      }
+      closeCallModal();
+    }
+
+    function triggerWhatsAppOutreach(jobId) {
+      const job = jobsDatabase.find(j => j.id === jobId);
+      if (!job) return;
+
+      const cleanNumber = job.whatsapp.replace(/\D/g, '');
+      const prefillMessage = encodeURIComponent(
+        `Hello HR,\nI am reaching out regarding the "${job.title}" position at "${job.company}" listed on WorkSetu.\nI am available for an immediate interview. Please share the venue and timing.`
+      );
+
+      // Record lead
+      candidateInquiryLeads.unshift({
+        id: 'lead-' + Date.now(),
+        name: 'WhatsApp Applicant',
+        phone: cleanNumber,
+        jobTitle: job.title,
+        channel: 'WhatsApp',
+        time: 'Just now'
+      });
+
+      const waUrl = `https://wa.me/${cleanNumber}?text=${prefillMessage}`;
+      window.open(waUrl, '_blank');
+      showToast('Opening WhatsApp HR chat with prefilled application...', 'info');
+    }
+
+    /* -----------------------------------------------------------
+       5. CORPORATE 1-CLICK FAST APPLY
+    ----------------------------------------------------------- */
+    function openCorporateApplyModal(jobId) {
+      const job = jobsDatabase.find(j => j.id === jobId);
+      if (!job) return;
+
+      activeCorporateTarget = job;
+      document.getElementById('applyJobTitleHeader').textContent = `${job.title} at ${job.company}`;
+      document.getElementById('corporateApplyModal').classList.remove('hidden');
+    }
+
+    function closeCorporateApplyModal() {
+      document.getElementById('corporateApplyModal').classList.add('hidden');
+      activeCorporateTarget = null;
+    }
+
+    function handleCorporateApplication(e) {
+      e.preventDefault();
+      const name = document.getElementById('corpCandName').value.trim();
+      const phone = document.getElementById('corpCandPhone').value.trim();
+      const exp = document.getElementById('corpCandExp').value;
+      const notice = document.getElementById('corpCandNotice').value;
+
+      candidateInquiryLeads.unshift({
+        id: 'lead-' + Date.now(),
+        name: name,
+        phone: phone,
+        jobTitle: activeCorporateTarget.title,
+        channel: '1-Click Profile',
+        time: 'Just now'
+      });
+
+      showToast(`Application successfully sent to ${activeCorporateTarget.company} HR!`);
+      closeCorporateApplyModal();
+      document.getElementById('corporateApplyForm').reset();
+    }
+
+    /* -----------------------------------------------------------
+       6. EMPLOYER BOOTH (POST IN 60 SECONDS)
+    ----------------------------------------------------------- */
+    function handleEmployerPost(e) {
+      e.preventDefault();
+      const title = document.getElementById('postTitle').value.trim();
+      const company = document.getElementById('postCompany').value.trim();
+      const collar = document.getElementById('postCollarTrack').value;
+      const city = document.getElementById('postCity').value.trim();
+      const openings = parseInt(document.getElementById('postOpenings').value, 10) || 1;
+      const salary = document.getElementById('postSalary').value.trim();
+      const experience = document.getElementById('postExperience').value.trim();
+      const phone = document.getElementById('postPhone').value.trim();
+      const whatsapp = document.getElementById('postWhatsapp').value.trim() || phone;
+      const rawTags = document.getElementById('postTags').value.trim();
+
+      const track = collar === 'White Collar' ? 'professional' : 'frontline';
+      const tags = rawTags ? rawTags.split(',').map(t => t.trim()) : ['Pan-India Listing', 'Immediate Join'];
+
+      const newJob = {
+        id: 'ws-' + Date.now(),
+        track: track,
+        collar: collar,
+        title: title,
+        company: company,
+        city: city,
+        state: 'All India',
+        payFormatted: salary,
+        minMonthlyPay: 15000,
+        experience: experience,
+        openings: openings,
+        phone: phone,
+        whatsapp: whatsapp,
+        isVerified: true,
+        tags: tags,
+        postedTime: 'Just now'
+      };
+
+      jobsDatabase.unshift(newJob);
+      document.getElementById('postJobQuickForm').reset();
+      showToast('Vacancy published live across India!', 'success');
+      renderEmployerBooth();
+    }
+
+    function renderEmployerBooth() {
+      // Metric counters
+      document.getElementById('statActiveCount').textContent = jobsDatabase.length;
+      document.getElementById('statInquiryCount').textContent = candidateInquiryLeads.length;
+
+      // Render leads table
+      const leadsBody = document.getElementById('applicantLeadsTableBody');
+      leadsBody.innerHTML = candidateInquiryLeads.map(lead => {
+        const badgeColor = lead.channel === 'Direct Call' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/30' :
+          lead.channel === 'WhatsApp' ? 'bg-emerald-500/10 text-brandEmerald border border-emerald-500/30' :
+          'bg-indigo-500/10 text-indigo-400 border border-indigo-500/30';
+
+        return `
+          <tr class="hover:bg-slate-900/60 transition">
+            <td class="py-2.5 font-bold text-white">${lead.name}</td>
+            <td class="py-2.5 text-slate-300 truncate max-w-[140px]">${lead.jobTitle}</td>
+            <td class="py-2.5">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded ${badgeColor}">
+                ${lead.channel}
+              </span>
+            </td>
+            <td class="py-2.5 text-slate-400">${lead.time}</td>
+            <td class="py-2.5 text-right space-x-1">
+              <a href="tel:${lead.phone}" class="p-1.5 bg-slate-800 text-brandEmerald hover:bg-slate-700 rounded-lg inline-block" title="Call candidate back">
+                <i class="fa-solid fa-phone text-xs"></i>
+              </a>
+              <a href="https://wa.me/${lead.phone.replace(/\D/g, '')}" target="_blank" class="p-1.5 bg-slate-800 text-brandEmerald hover:bg-slate-700 rounded-lg inline-block" title="WhatsApp message">
+                <i class="fa-brands fa-whatsapp text-xs"></i>
+              </a>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      // Render active postings list
+      const jobsList = document.getElementById('employerJobListContainer');
+      jobsList.innerHTML = jobsDatabase.slice(0, 6).map(job => {
+        return `
+          <div class="flex items-center justify-between p-3 bg-slate-900 rounded-xl border border-slate-800">
+            <div>
+              <p class="font-bold text-xs text-white">${job.title}</p>
+              <p class="text-[11px] text-slate-400">${job.city} • ${job.payFormatted}</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] font-bold bg-brandEmerald/10 text-brandEmerald px-2 py-0.5 rounded">
+                ${job.openings} Openings
+              </span>
+              <button onclick="removeVacancy('${job.id}')" class="text-rose-400 hover:text-rose-300 p-1">
+                <i class="fa-solid fa-trash-can text-xs"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function removeVacancy(jobId) {
+      jobsDatabase = jobsDatabase.filter(j => j.id !== jobId);
+      showToast('Vacancy removed from feed', 'info');
+      renderEmployerBooth();
+    }
+
+    /* -----------------------------------------------------------
+       7. UNIVERSAL PWA INSTALLATION SYSTEM
+    ----------------------------------------------------------- */
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPwaPrompt = e;
+      const nativeBox = document.getElementById('pwaNativeInstallRow');
+      if (nativeBox) nativeBox.classList.remove('hidden');
+    });
+
+    function triggerPwaPrompt() {
+      if (deferredPwaPrompt) {
+        deferredPwaPrompt.prompt();
+        deferredPwaPrompt.userChoice.then((result) => {
+          if (result.outcome === 'accepted') {
+            showToast('WorkSetu installed to your device home screen!');
+          }
+          deferredPwaPrompt = null;
+          closeInstallModal();
+        });
+      } else {
+        showToast('Use browser menu (⋮) -> Add to Home Screen', 'info');
+      }
+    }
+
+    function openInstallModal() {
+      document.getElementById('installModal').classList.remove('hidden');
+    }
+
+    function closeInstallModal() {
+      document.getElementById('installModal').classList.add('hidden');
+    }
+
+    /* -----------------------------------------------------------
+       8. NOTIFICATION TOAST UTILITY
+    ----------------------------------------------------------- */
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toastNotification');
+      const toastMsg = document.getElementById('toastMessage');
+      const toastIcon = document.getElementById('toastIcon');
+
+      toastMsg.textContent = message;
+      if (type === 'info') {
+        toastIcon.className = 'fa-solid fa-circle-info text-blue-400 text-base';
+      } else if (type === 'error') {
+        toastIcon.className = 'fa-solid fa-triangle-exclamation text-rose-400 text-base';
+      } else {
+        toastIcon.className = 'fa-solid fa-circle-check text-brandEmerald text-base';
+      }
+
+      toast.classList.remove('-translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.add('-translate-y-24', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 3400);
+    }
+
+    /* -----------------------------------------------------------
+       9. INITIALIZATION
+    ----------------------------------------------------------- */
+    window.onload = function() {
+      filterAndRenderJobs();
+    };
+  </script>
+</body>
+</html>
